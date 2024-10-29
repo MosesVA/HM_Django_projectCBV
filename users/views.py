@@ -53,8 +53,7 @@ class UserPasswordChangeView(PasswordChangeView):
 
 
 class UserLogoutView(LogoutView):
-    pass
-    # template_name = 'users/logout.html'
+    template_name = 'users/logout_user.html'
 
 
 @login_required
