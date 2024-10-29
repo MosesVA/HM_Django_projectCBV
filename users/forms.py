@@ -27,7 +27,7 @@ class UserRegisterForm(StyleFormMixin, UserCreationForm):
         cd = self.cleaned_data
         validate_password(cd['password1'])
         if cd['password1'] != cd['password2']:
-            raise forms.ValidationError('Passwords don\'t match.')
+            raise forms.ValidationError('password_mismatch')
         return cd['password2']
 
 
