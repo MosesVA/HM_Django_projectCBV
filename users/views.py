@@ -22,23 +22,9 @@ class UserRegisterView(CreateView):
     template_name = 'users/register_user.html'
 
 
-def user_login_view(request):
-    if request.method == 'POST':
-        form = UserLoginForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(email=cd['email'], password=cd['password'])
-            if user:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponseRedirect(reverse('dogs:index'))
-                else:
-                    return HttpResponse('Аккаунт неактивен!')
-    form = UserLoginForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'users/login_user.html', context)
+class UserLoginView(LoginView):
+    form_class = UserLoginForm
+    template_name = 'users/login_user.html'
 
 
 @login_required
