@@ -52,9 +52,9 @@ class UserPasswordChangeView(PasswordChangeView):
     success_url = reverse_lazy('users:profile_user')
 
 
-def user_logout_view(request):
-    logout(request)
-    return redirect('dogs:index')
+class UserLogoutView(LogoutView):
+    pass
+    # template_name = 'users/logout.html'
 
 
 @login_required
