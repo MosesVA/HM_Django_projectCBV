@@ -1,0 +1,122 @@
+[
+  {
+    "model": "dogs.category",
+    "pk": 1,
+    "fields": {
+      "name": "Овчарка",
+      "description": "Хороший сторож, большая и пушистая"
+    }
+  },
+  {
+    "model": "dogs.category",
+    "pk": 2,
+    "fields": {
+      "name": "Колли",
+      "description": "Красивая, снималась в кино"
+    }
+  },
+  {
+    "model": "dogs.category",
+    "pk": 3,
+    "fields": {
+      "name": "Кинг Чарльз Спаниель",
+      "description": "Очень милая и ленивая порода"
+    }
+  },
+  {
+    "model": "dogs.category",
+    "pk": 4,
+    "fields": {
+      "name": "Чихуа-хуа",
+      "description": "Концентрация злобы!"
+    }
+  },
+  {
+    "model": "dogs.dog",
+    "pk": 1,
+    "fields": {
+      "name": "Пушок Лучший",
+      "category": 3,
+      "photo": "dogs/Кинг_Чарльз_Спаниель.jpg",
+      "birth_date": "2023-07-07",
+      "owner": null
+    }
+  },
+  {
+    "model": "dogs.dog",
+    "pk": 2,
+    "fields": {
+      "name": "Лесси",
+      "category": 2,
+      "photo": "dogs/Колли2.jpg",
+      "birth_date": "2023-10-08",
+      "owner": null
+    }
+  },
+  {
+    "model": "dogs.dog",
+    "pk": 3,
+    "fields": {
+      "name": "Маленькая Леди",
+      "category": 3,
+      "photo": "",
+      "birth_date": "2023-08-08",
+      "owner": null
+    }
+  },
+  {
+    "model": "dogs.dog",
+    "pk": 4,
+    "fields": {
+      "name": "Рен",
+      "category": 4,
+      "photo": "dogs/Чихуахуа.jpg",
+      "birth_date": "2023-11-08",
+      "owner": null
+    }
+  },
+  {
+    "model": "dogs.dog",
+    "pk": 5,
+    "fields": {
+      "name": "Джерри Ли",
+      "category": 1,
+      "photo": "dogs/Овчарка_rc22kx1.jpg",
+      "birth_date": "2021-10-27",
+      "owner": null
+    }
+  },
+  {
+    "model": "dogs.dog",
+    "pk": 7,
+    "fields": {
+      "name": "Джесси",
+      "category": 1,
+      "photo": "dogs/Овчарка2.jpg",
+      "birth_date": "2021-09-25",
+      "owner": null
+    }
+  },
+  {
+    "model": "dogs.dog",
+    "pk": 8,
+    "fields": {
+      "name": "Марлин",
+      "category": 3,
+      "photo": "dogs/Кинг_Чарльз_Спаниель_i2YWP8a.jpg",
+      "birth_date": "2021-09-25",
+      "owner": null
+    }
+  },
+  {
+    "model": "dogs.dog",
+    "pk": 9,
+    "fields": {
+      "name": "Чаппи",
+      "category": 1,
+      "photo": "",
+      "birth_date": "2023-07-07",
+      "owner": null
+    }
+  }
+]

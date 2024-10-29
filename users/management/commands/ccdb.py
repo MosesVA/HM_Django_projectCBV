@@ -6,7 +6,7 @@ from config.settings import DATABASE, USER, PASSWORD, HOST
 class Command(BaseCommand):
     connectionString = f'''DRIVER={{ODBC Driver 17 for SQL Server}};
                            SERVER={HOST};
-                           DATABASE=Academy;
+                           DATABASE=NorthWind;
                            UID={USER};
                            PWD={PASSWORD}'''
     try:
