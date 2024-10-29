@@ -1,0 +1,5 @@
+mssql-django
+python-dotenv==1.0.1
+pillow
+Django==5.0.9
+pyodbc==5.2.0

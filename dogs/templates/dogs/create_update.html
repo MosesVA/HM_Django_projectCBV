@@ -1,0 +1,33 @@
+{% extends 'dogs/base.html' %}
+{% load my_tags %}
+{% block content %}
+<form method="post" enctype="multipart/form-data" class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                {% if object %}
+                Редактирование собаки
+                {% else %}
+                Добавление собаки
+                {% endif %}
+            </div>
+            <img class="card-img-top"
+                 src="{{ object.photo|dogs_media }}" width="300" height="400"
+                 alt="Card image cap">
+            <div class="card-body">
+
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-outline-success">
+                    {% if object %}
+                    Сохранить
+                    {% else %}
+                    Добавить
+                    {% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
