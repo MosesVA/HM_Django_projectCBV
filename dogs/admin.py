@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from dogs.models import Dog, Category
 
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('pk', 'name')

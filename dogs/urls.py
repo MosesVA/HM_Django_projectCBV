@@ -1,4 +1,5 @@
 from django.urls import path
+
 from dogs.views import index, categories, category_dogs, dogs_list_view, dog_create_view, dog_detail_view, \
     dog_update_view, dog_delete_view
 from dogs.apps import DogsConfig

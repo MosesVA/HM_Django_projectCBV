@@ -1,5 +1,7 @@
-from django.core.management import BaseCommand
 import pyodbc
+
+from django.core.management import BaseCommand
+
 from config.settings import DATABASE, USER, PASSWORD, HOST
 
 
