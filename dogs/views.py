@@ -44,20 +44,11 @@ class DogListView(ListView):
     template_name = 'dogs/dogs.html'
 
 
-def dog_create_view(request):
-    """Отрисовка страницы создания собаки"""
-    if request.method == 'POST':
-        form = DogForm(request.POST, request.FILES)
-        if form.is_valid():
-            dog_object = form.save()
-            dog_object.owner = request.user
-            dog_object.save()
-            return HttpResponseRedirect(reverse('dogs:list_dogs'))
-    context = {
-        'title': 'Добавление собаки',
-        'form': DogForm()
-    }
-    return render(request, 'dogs/create_update.html', context)
+class DogCreateView(CreateView):
+    model = Dog
+    form_class = DogForm
+    template_name = 'dogs/create_update.html'
+    success_url = reverse_lazy('dogs:list_dogs')
 
 
 def dog_detail_view(request, pk):
