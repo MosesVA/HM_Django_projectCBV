@@ -9,7 +9,7 @@ from users.forms import StyleFormMixin
 class DogForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Dog
-        exclude = ('owner',)
+        exclude = ('owner', 'is_active')
 
     def clean_birth_date(self):
         if self.cleaned_data['birth_date']:
