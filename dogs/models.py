@@ -49,7 +49,6 @@ class Parent(models.Model):
     name = models.CharField(max_length=250, verbose_name='dog_name')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='breed')
     birth_date = models.DateField(**NULLABLE, verbose_name='birth_date')
-    is_active = models.BooleanField(default=True, verbose_name='is_active')
 
     def __str__(self):
         return f'{self.name} ({self.category})'
