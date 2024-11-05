@@ -16,13 +16,16 @@
                 <div class="card-body">
                     <p class="card-text">{{ object.name|title }}</p>
                 </div>
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-outline-danger">
-                    {% if object %}
-                    Удалить
-                    {% endif %}
-                </button>
+                <div class="card-footer">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-outline-danger float-right">
+                        {% if object %}
+                        Удалить
+                        {% endif %}
+                    </button>
+                        <a href="{% url 'dogs:update_dog' object.pk %}" class="btn btn-outline-primary"><< Назад</a>
+                </div>
             </div>
         </div>
     </div>
