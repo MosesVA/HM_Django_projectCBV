@@ -2,7 +2,8 @@ import random
 import string
 
 from django.contrib.auth.views import LoginView, PasswordChangeView, LogoutView
-from django.views.generic import CreateView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, UpdateView, ListView
 from django.shortcuts import reverse, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -57,6 +58,18 @@ class UserPasswordChangeView(PasswordChangeView):
 class UserLogoutView(LogoutView):
     template_name = 'users/logout_user.html'
 
+
+class UserListView(LoginRequiredMixin, ListView):
+    model = User
+    extra_context = {
+        'title': 'Питомник - Все наши заводчики'
+    }
+    template_name = 'users/users.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_active=True)
+        return queryset
 
 @login_required
 def user_generate_new_password(request):

@@ -1,0 +1,21 @@
+{% load my_tags %}
+<div class="col-4">
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ object.first_name }}</h4>
+        </div>
+        <img class="card-img-top"
+             src="{{ object.avatar|user_media }}" width="300" height="400"
+             alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title pricing-card-title">{{ object.first_name }} {{ object.last_name }}</h5>
+            <ul class="list-unstyled mt-3 md-4 text-start m-3 ">
+                <li>E-mail: {{ object.email }}</li>
+                <li>Телефон: {{ object.phone|default:'Не указан' }}</li>
+                <li>Телеграм: {{ object.telegram|default:'Не указан' }}</li>
+            </ul>
+            <a class="btn btn-lg btn-block btn-outline-info"
+               href="{% url 'dogs:detail_dog' object.pk %}">Информация</a>
+        </div>
+    </div>
+</div>
