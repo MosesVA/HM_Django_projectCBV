@@ -6,7 +6,7 @@ from django.forms import inlineformset_factory
 from django.core.exceptions import PermissionDenied
 
 from dogs.models import Category, Dog, Parent
-from dogs.forms import DogForm, ParentForm
+from dogs.forms import DogForm, DogAdminForm, ParentForm
 from users.models import UserRoles
 from dogs.services import send_views_mail
 
@@ -108,7 +108,6 @@ class DogDetailView(DetailView):
 
 class DogUpdateView(LoginRequiredMixin, UpdateView):
     model = Dog
-    form_class = DogForm
     template_name = 'dogs/create_update.html'
 
     def get_success_url(self):
@@ -130,6 +129,16 @@ class DogUpdateView(LoginRequiredMixin, UpdateView):
             formset = ParentFormset(instance=self.object)
         context_data['formset'] = formset
         return context_data
+
+    def get_form_class(self):
+        dog_forms = {
+            'admin': DogAdminForm,
+            'moderator': DogForm,
+            'user': DogForm
+        }
+        user_role = self.request.user.role
+        dog_form_class = dog_forms[user_role]
+        return dog_form_class
 
     def form_valid(self, form):
         context_data = self.get_context_data()
