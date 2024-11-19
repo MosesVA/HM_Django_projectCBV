@@ -25,6 +25,7 @@ class Dog(models.Model):
     photo = models.ImageField(upload_to='dogs/', **NULLABLE, verbose_name='image')
     birth_date = models.DateField(**NULLABLE, verbose_name='birth_date')
     is_active = models.BooleanField(default=True, verbose_name='active')
+    views = models.IntegerField(default=0, verbose_name='Просмотры')
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE,
                               verbose_name='Владелец')
@@ -42,6 +43,10 @@ class Dog(models.Model):
         # permissions = []  # добавляются группы пользователей, которые могут изменять сущность данной модели
         # db_table = 'doggies'  # перезаписать имя таблицы в БД
         # get_latest_by = 'birth_date'  # возвращает последний объект по порядку возрастания (самая молодая собака)
+
+    def views_count(self):
+        self.views += 1
+        self.save()
 
 
 class Parent(models.Model):
