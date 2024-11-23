@@ -1,5 +1,5 @@
 {% load my_tags %}
-<div class="col-5">
+<div class="col-4">
     <div class="card mb-0 box-shadow">
         <div class="card-header">
             <h4 class="my-0 font-weight-center">{{ object.dog.name }} / {{ object.dog.category }}</h4>
@@ -9,6 +9,12 @@
             <ul class="list-unstyled mt-3 md-4 text-start m-3 ">
                 <li>Создан: {{ object.created }}</li>
             </ul>
+            <a class="btn btn-lg btn-block btn-outline-info"
+               href="{% url 'reviews:detail_review' object.slug %}">Подробнее</a>
+            {% if user.is_staff %}
+            <a class="btn btn-lg btn-block btn-outline-warning"
+               href="{% url 'reviews:update_review' object.slug %}">Изменить/Удалить</a>
+            {% endif %}
         </div>
     </div>
 </div>
