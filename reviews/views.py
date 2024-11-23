@@ -33,3 +33,38 @@ class ReviewDeactivatedListView(LoginRequiredMixin, ListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(sign_of_review=False)
         return queryset
+
+
+class ReviewCreateView(LoginRequiredMixin, CreateView):
+    model = Review
+    form_class = ReviewForm
+    template_name = 'reviews/review_create_update.html'
+
+
+class ReviewUpdateView(LoginRequiredMixin, UpdateView):
+    model = Review
+    form_class = ReviewForm
+    template_name = 'reviews/review_create_update.html'
+
+    def get_success_url(self):
+        return reverse('reviews:detail_review', args=[self.kwargs.get('slug')])
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.author != self.request.user or self.request.user not in [UserRoles.ADMIN, UserRoles.MODERATOR]:
+            raise PermissionDenied()
+        return self.object
+
+
+class ReviewDetailView(LoginRequiredMixin, DetailView):
+    model = Review
+    template_name = 'reviews/review_detail.html'
+
+
+class ReviewDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Review
+    template_name = 'reviews/review_delete.html'
+    permission_required = 'reviews.delete_review'
+
+    def get_success_url(self):
+        return reverse('reviews:list_reviews')
