@@ -61,6 +61,7 @@ class UserLogoutView(LogoutView):
 
 class UserListView(LoginRequiredMixin, ListView):
     model = User
+    paginate_by = 3
     extra_context = {
         'title': 'Питомник - Все наши заводчики'
     }

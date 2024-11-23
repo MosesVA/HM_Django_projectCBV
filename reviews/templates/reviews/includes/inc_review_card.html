@@ -11,9 +11,15 @@
             </ul>
             <a class="btn btn-lg btn-block btn-outline-info"
                href="{% url 'reviews:detail_review' object.slug %}">Подробнее</a>
-            {% if user.is_staff %}
+            {% if user.is_authenticated and object.author == user or user.is_staff %}
             <a class="btn btn-lg btn-block btn-outline-warning"
-               href="{% url 'reviews:update_review' object.slug %}">Изменить/Удалить</a>
+               href="{% url 'reviews:update_review' object.slug %}">
+                {% if user.is_staff %}
+                Изменить/Удалить
+                {% elif object.author == user %}
+                Изменить
+                {% endif %}
+            </a>
             {% endif %}
         </div>
     </div>

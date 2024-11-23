@@ -12,6 +12,7 @@ from reviews.utils import slug_generator
 
 class ReviewListView(LoginRequiredMixin, ListView):
     model = Review
+    paginate_by = 2
     extra_context = {
         'title': 'Все отзывы'
     }
@@ -25,6 +26,7 @@ class ReviewListView(LoginRequiredMixin, ListView):
 
 class ReviewDeactivatedListView(LoginRequiredMixin, ListView):
     model = Review
+    paginate_by = 2
     extra_context = {
         'title': 'Неактивные отзывы'
     }

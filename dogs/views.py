@@ -43,6 +43,7 @@ class DogCategoryListView(LoginRequiredMixin, ListView):
 
 class DogListView(LoginRequiredMixin, ListView):
     model = Dog
+    paginate_by = 3
     extra_context = {
         'title': 'Питомник - Все наши собаки'
     }
