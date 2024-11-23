@@ -2,7 +2,7 @@ import pyodbc
 
 from django.core.management import BaseCommand
 
-from config.settings import DATABASE, USER, PASSWORD, HOST
+from config.settings import DATABASE, USER, PASSWORD, HOST, BASE_DB
 
 
 class Command(BaseCommand):
