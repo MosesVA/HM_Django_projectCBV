@@ -10,7 +10,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         connectionString = f'''DRIVER={{ODBC Driver 17 for SQL Server}};
                                SERVER={HOST};
-                               DATABASE=NorthWind;
+                               DATABASE={BASE_DB};
                                UID={USER};
                                PWD={PASSWORD}'''
         try:
