@@ -10,7 +10,7 @@ class Command(BaseCommand):
             email='admin@web.top',
             first_name='Admin',
             last_name='Adminov',
-            role = 'admin',
+            role='admin',
             is_staff=True,
             is_superuser=True,
             is_active=True
