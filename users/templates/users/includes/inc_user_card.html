@@ -15,7 +15,7 @@
                 <li>Телеграм: {{ object.telegram|default:'Не указан' }}</li>
             </ul>
             <a class="btn btn-lg btn-block btn-outline-info"
-               href="{% url 'dogs:detail_dog' object.pk %}">Информация</a>
+               href="{% url 'users:profile_user_view' object.pk %}">Информация</a>
         </div>
     </div>
 </div>
