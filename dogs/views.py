@@ -29,12 +29,29 @@ class CategoryListView(LoginRequiredMixin, ListView):
     template_name = 'dogs/categories.html'
 
 
+class CategorySearchListView(LoginRequiredMixin, ListView):
+    model = Category
+    template_name = 'dogs/categories.html'
+    extra_context = {
+        'title': 'Результаты поиска'
+    }
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Category.objects.filter(
+            Q(name__icontains=query),
+        )
+        return object_list
+
+
 class DogCategoryListView(LoginRequiredMixin, ListView):
     model = Dog
     template_name = 'dogs/dogs.html'
 
     def get_queryset(self):
-        queryset = super().get_queryset().filter(category_id=self.kwargs.get('pk'))
+        queryset = super().get_queryset().filter(
+            category_id=self.kwargs.get('pk'), is_active=True
+        )
 
         # if not self.request.user.is_staff:
         #     queryset = queryset.filter(owner=self.request.user)
