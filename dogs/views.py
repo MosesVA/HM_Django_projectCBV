@@ -75,13 +75,17 @@ class DogDeactivateListView(LoginRequiredMixin, ListView):
 
 class DogSearchListView(LoginRequiredMixin, ListView):
     model = Dog
-    template_name = 'dogs/dogs_search_results.html'
-    queryset = Dog.objects.filter(name__icontains='Пушок')
+    template_name = 'dogs/dogs.html'
+    extra_context = {
+        'title': 'Результаты поиска'
+    }
 
     def get_queryset(self):
-        return Dog.objects.filter(
-            Q(name__icontains='Пушок')
+        query = self.request.GET.get('q')
+        object_list = Dog.objects.filter(
+            Q(name__icontains=query), is_active=True
         )
+        return object_list
 
 
 class DogCreateView(LoginRequiredMixin, CreateView):
