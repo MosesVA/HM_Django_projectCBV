@@ -10,6 +10,17 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/album.css' %}" rel="stylesheet">
 </head>
+<style>
+    input[type=text], select {
+  width: 100%;
+  padding: 2px 5px;
+  margin: 8px 5px 8px 5px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+</style>
 
 <body>
 
@@ -36,10 +47,12 @@
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'users:users_list' %}" class="text-white">Все пользователи</a></li>
                         <li><a href="{% url 'users:profile_user' %}" class="text-white">Профиль</a></li>
-                        <li><form method="post" action="{% url 'users:logout_user' %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger btn-sm">Выход</button>
-                        </form></li>
+                        <li>
+                            <form method="post" action="{% url 'users:logout_user' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Выход</button>
+                            </form>
+                        </li>
                         {% else %}
                         <li><a href="{% url 'users:login_user' %}" class="text-white">Вход</a></li>
                         <li><a href="{% url 'users:register_user' %}" class="text-white">Регистрация</a></li>
@@ -57,7 +70,7 @@
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                     <circle cx="12" cy="13" r="4"></circle>
                 </svg>
-                <strong>Питомник</strong>(•ᴥ•)
+                <strong>Питомник(•ᴥ•)</strong>
                 {% if user.is_authenticated %}
                 {% include 'dogs/includes/inc_search_fields.html' %}
                 {% endif %}
