@@ -12,7 +12,7 @@
             <span class="text-muted"><td>Хозяин:</td>{{ object.owner|default:"Без хозяина" }}</span><br>
             <span class="text-muted"><td>Имя Хозяина:</td>{{ object.owner.first_name }}</span><br>
             <span class="text-muted"><td>Телефон Хозяина:</td>{{ object.owner.phone }}</span>
-            <span class="text-muted"><td>Просмотры:</td>{{ object.owner.phone }}</span>
+            <span class="text-muted"><td>Просмотры:</td>{{ object.views }}</span>
         </div>
         <div class="card-footer">
             <a class="btn btn-link" href="{% url 'dogs:list_dogs' %}">назад</a>
