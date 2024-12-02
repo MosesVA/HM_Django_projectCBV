@@ -4,6 +4,7 @@ from users.models import User
 
 
 class Command(BaseCommand):
+    """Создание Админа, Модератора и Обычного пользователя"""
 
     def handle(self, *args, **options):
         admin = User.objects.create(

@@ -2,19 +2,20 @@ import pyodbc
 
 from django.core.management import BaseCommand
 
-from config.settings import DATABASE, USER, PASSWORD, HOST, BASE_DB
+from config.settings import DATABASE, USER, PASSWORD, HOST, PAD_DATABASE, DRIVER
 
 
 class Command(BaseCommand):
+    """Создание БД"""
 
     def handle(self, *args, **options):
-        connectionString = f'''DRIVER={{ODBC Driver 17 for SQL Server}};
+        ConnectionString = f'''DRIVER={DRIVER};
                                SERVER={HOST};
-                               DATABASE={BASE_DB};
+                               DATABASE={PAD_DATABASE};
                                UID={USER};
                                PWD={PASSWORD}'''
         try:
-            conn = pyodbc.connect(connectionString)
+            conn = pyodbc.connect(ConnectionString)
         except pyodbc.ProgrammingError as ex:
             print(ex)
         else:

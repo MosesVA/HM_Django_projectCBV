@@ -11,6 +11,7 @@ from reviews.utils import slug_generator
 
 
 class ReviewListView(LoginRequiredMixin, ListView):
+    """Отрисовка страницы со всеми отзывами"""
     model = Review
     paginate_by = 2
     extra_context = {
@@ -19,12 +20,14 @@ class ReviewListView(LoginRequiredMixin, ListView):
     template_name = 'reviews/reviews_list.html'
 
     def get_queryset(self):
+        """Переписан метод get_queryset() для сортировки активных отзывов"""
         queryset = super().get_queryset()
         queryset = queryset.filter(sign_of_review=True)
         return queryset
 
 
 class ReviewDeactivatedListView(LoginRequiredMixin, ListView):
+    """Отрисовка страницы со всеми неактивными отзывами"""
     model = Review
     paginate_by = 2
     extra_context = {
@@ -33,12 +36,15 @@ class ReviewDeactivatedListView(LoginRequiredMixin, ListView):
     template_name = 'reviews/reviews_list.html'
 
     def get_queryset(self):
+        """Переписан метод get_queryset() для сортировки неактивных собак
+        (владельцу показывает только его собаку)"""
         queryset = super().get_queryset()
         queryset = queryset.filter(sign_of_review=False)
         return queryset
 
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
+    """Отрисовка страницы создания отзыва"""
     model = Review
     form_class = ReviewForm
     template_name = 'reviews/review_create_update.html'
@@ -57,6 +63,7 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
 
 
 class ReviewUpdateView(LoginRequiredMixin, UpdateView):
+    """Отрисовка страницы обновления данных отзыва"""
     model = Review
     form_class = ReviewForm
     template_name = 'reviews/review_create_update.html'
@@ -72,11 +79,13 @@ class ReviewUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class ReviewDetailView(LoginRequiredMixin, DetailView):
+    """Отрисовка страницы деталей об отзыве"""
     model = Review
     template_name = 'reviews/review_detail.html'
 
 
 class ReviewDeleteView(PermissionRequiredMixin, DeleteView):
+    """Отрисовка страницы удаления отзыва"""
     model = Review
     template_name = 'reviews/review_delete.html'
     permission_required = 'reviews.delete_review'
@@ -86,6 +95,7 @@ class ReviewDeleteView(PermissionRequiredMixin, DeleteView):
 
 
 def review_toggle_activity(request, slug):
+    """Отрисовка страницы с активными или неактивными отзывами"""
     review_item = get_object_or_404(Review, slug=slug)
     if review_item.sign_of_review:
         review_item.sign_of_review = False

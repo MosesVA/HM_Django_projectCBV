@@ -15,17 +15,21 @@ class StyleFormMixin:
 
 
 class UserForm(StyleFormMixin, forms.ModelForm):
+    """Форма Пользователя"""
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'phone', 'avatar')
 
 
 class UserRegisterForm(StyleFormMixin, UserCreationForm):
+    """Форма регистрации Пользователя"""
     class Meta:
         model = User
         fields = ('email',)
 
     def clean_password2(self):
+        """Переписан метод clean_password2()
+        для внедрения собственного валидатора"""
         cd = self.cleaned_data
         validate_password(cd['password1'])
         if cd['password1'] != cd['password2']:
@@ -34,16 +38,19 @@ class UserRegisterForm(StyleFormMixin, UserCreationForm):
 
 
 class UserLoginForm(StyleFormMixin, AuthenticationForm):
+    """Форма входа в профиль пользователя(стандарт джанго)"""
     pass
 
 
 class UserUpdateForm(StyleFormMixin, forms.ModelForm):
+    """Форма обновления данных Пользователя"""
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'phone', 'telegram', 'avatar')
 
 
 class UserPasswordChangeForm(StyleFormMixin, PasswordChangeForm):
+    """Форма смены пароля Пользователя"""
     def clean_new_password2(self):
         password1 = self.cleaned_data.get("new_password1")
         password2 = self.cleaned_data.get("new_password2")

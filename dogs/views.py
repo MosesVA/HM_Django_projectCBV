@@ -22,6 +22,7 @@ def index(request):
 
 
 class CategoryListView(LoginRequiredMixin, ListView):
+    """Отрисовка страницы со всеми породами собак"""
     model = Category
     extra_context = {
         'title': 'Питомник - Все наши породы'
@@ -30,6 +31,7 @@ class CategoryListView(LoginRequiredMixin, ListView):
 
 
 class CategorySearchListView(LoginRequiredMixin, ListView):
+    """Отрисовка страницы поиска по категориям собак"""
     model = Category
     template_name = 'dogs/categories.html'
     extra_context = {
@@ -37,6 +39,7 @@ class CategorySearchListView(LoginRequiredMixin, ListView):
     }
 
     def get_queryset(self):
+        """Переписан метод get_queryset() для сортировки в соответствии с поисковым запросом"""
         query = self.request.GET.get('q')
         object_list = Category.objects.filter(
             Q(name__icontains=query),
@@ -45,10 +48,12 @@ class CategorySearchListView(LoginRequiredMixin, ListView):
 
 
 class DogCategoryListView(LoginRequiredMixin, ListView):
+    """Отрисовка страницы с собаками отдельной категории"""
     model = Dog
     template_name = 'dogs/dogs.html'
 
     def get_queryset(self):
+        """Переписан метод get_queryset() для сортировки активных собак"""
         queryset = super().get_queryset().filter(
             category_id=self.kwargs.get('pk'), is_active=True
         )
@@ -60,6 +65,7 @@ class DogCategoryListView(LoginRequiredMixin, ListView):
 
 
 class DogListView(LoginRequiredMixin, ListView):
+    """Отрисовка страницы со всеми активными собаками"""
     model = Dog
     paginate_by = 3
     extra_context = {
@@ -68,11 +74,13 @@ class DogListView(LoginRequiredMixin, ListView):
     template_name = 'dogs/dogs.html'
 
     def get_queryset(self):
+        """Переписан метод get_queryset() для сортировки активных собак"""
         queryset = super().get_queryset().filter(is_active=True)
         return queryset
 
 
 class DogDeactivateListView(LoginRequiredMixin, ListView):
+    """Отрисовка страницы со всеми неактивными собаками"""
     model = Dog
     extra_context = {
         'title': 'Питомник - Неактивные собаки'
@@ -80,6 +88,8 @@ class DogDeactivateListView(LoginRequiredMixin, ListView):
     template_name = 'dogs/dogs.html'
 
     def get_queryset(self):
+        """Переписан метод get_queryset() для сортировки неактивных собак
+        (владельцу показывает только его собаку)"""
         queryset = super().get_queryset()
 
         if self.request.user.role in [UserRoles.ADMIN, UserRoles.MODERATOR]:
@@ -91,6 +101,7 @@ class DogDeactivateListView(LoginRequiredMixin, ListView):
 
 
 class DogSearchListView(LoginRequiredMixin, ListView):
+    """Отрисовка страницы поиска кличке собаки"""
     model = Dog
     template_name = 'dogs/dogs.html'
     extra_context = {
@@ -98,6 +109,7 @@ class DogSearchListView(LoginRequiredMixin, ListView):
     }
 
     def get_queryset(self):
+        """Переписан метод get_queryset() для сортировки в соответствии с поисковым запросом"""
         query = self.request.GET.get('q')
         object_list = Dog.objects.filter(
             Q(name__icontains=query), is_active=True
@@ -106,12 +118,15 @@ class DogSearchListView(LoginRequiredMixin, ListView):
 
 
 class DogCreateView(LoginRequiredMixin, CreateView):
+    """Отрисовка страницы создания собаки"""
     model = Dog
     form_class = DogForm
     template_name = 'dogs/create_update.html'
     success_url = reverse_lazy('dogs:list_dogs')
 
     def form_valid(self, form):
+        """Переписан метод form_valid() чтобы не зарегистрированный
+        пользователь не мог создать собаку"""
         if self.request.user.role != UserRoles.USER:
             raise PermissionDenied()
             # return HttpResponseForbidden('У вас нет прав доступа!')  # только если ожидается перенаправление
@@ -122,10 +137,13 @@ class DogCreateView(LoginRequiredMixin, CreateView):
 
 
 class DogDetailView(DetailView):
+    """Отрисовка страницы деталей о собаке"""
     model = Dog
     template_name = 'dogs/detail.html'
 
     def get_context_data(self, **kwargs):
+        """Переписан метод get_context_data() для увеличения кол-ва просмотров собаки
+        людьми кроме ее владельца. Отправление письма о просмотрах на почту владельцу"""
         context_data = super().get_context_data(**kwargs)
         object = self.get_object()
         context_data['title'] = f'{object.name} {object.category}'
@@ -141,6 +159,7 @@ class DogDetailView(DetailView):
 
 
 class DogUpdateView(LoginRequiredMixin, UpdateView):
+    """Отрисовка страницы обновления данных о собаке"""
     model = Dog
     template_name = 'dogs/create_update.html'
 
@@ -185,6 +204,7 @@ class DogUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class DogDeleteView(PermissionRequiredMixin, DeleteView):
+    """Отрисовка страницы удаления собаки"""
     model = Dog
     template_name = 'dogs/delete.html'
     success_url = reverse_lazy('dogs:list_dogs')
@@ -195,6 +215,7 @@ class DogDeleteView(PermissionRequiredMixin, DeleteView):
 
 
 def dog_toggle_activity(request, pk):
+    """Отрисовка страницы с активными или неактивными собаками"""
     dog_item = get_object_or_404(Dog, pk=pk)
     if dog_item.is_active:
         dog_item.is_active = False

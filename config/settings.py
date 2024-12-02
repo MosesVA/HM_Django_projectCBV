@@ -85,7 +85,8 @@ USER = os.getenv('MS_SQL_USER')
 PASSWORD = os.getenv('MS_SQL_KEY')
 HOST = os.getenv('MS_SQL_SERVER')
 DATABASE = os.getenv('MS_SQL_DATABASE')
-BASE_DB = os.getenv('BASE_DB')
+PAD_DATABASE = os.getenv('MS_SQL_PAD_DATABASE')
+DRIVER = os.getenv('MS_SQL_DRIVER')
 
 DATABASES = {
     'default': {
@@ -96,7 +97,7 @@ DATABASES = {
         'HOST': HOST,
         'PORT': '',
         'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server'
+            'driver': DRIVER
         }
     }
 }

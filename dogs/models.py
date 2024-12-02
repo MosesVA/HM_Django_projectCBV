@@ -18,7 +18,7 @@ class Category(models.Model):
 
 
 class Dog(models.Model):
-    """Модель 'Собака'"""
+    """Модель Собаки"""
     name = models.CharField(max_length=250, verbose_name='dog_name')
     # category = models.CharField(max_length=100, verbose_name='breed')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='breed')
@@ -45,11 +45,13 @@ class Dog(models.Model):
         # get_latest_by = 'birth_date'  # возвращает последний объект по порядку возрастания (самая молодая собака)
 
     def views_count(self):
+        """Метод для увеличения числа просмотров"""
         self.views += 1
         self.save()
 
 
 class Parent(models.Model):
+    """Форма для родителя собаки"""
     dog = models.ForeignKey(Dog, on_delete=models.CASCADE)
     name = models.CharField(max_length=250, verbose_name='dog_name')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='breed')
